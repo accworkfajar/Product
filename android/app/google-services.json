@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "589084982421",
+    "project_id": "qrcode-40a97",
+    "storage_bucket": "qrcode-40a97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589084982421:android:51aac25ce203643ce2af9c",
+        "android_client_info": {
+          "package_name": "com.fajarproject.qr_code"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF4mhRKptdNFcjU80NJ7DbNRK9V8bXf7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

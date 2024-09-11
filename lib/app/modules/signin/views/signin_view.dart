@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:qr_code/app/controllers/auth_controller.dart';
+import 'package:qr_code/app/routes/app_pages.dart';
 
 import '../controllers/signin_controller.dart';
 
 class SigninView extends GetView<SigninController> {
   SigninView({super.key});
 
-  final TextEditingController emailC = TextEditingController();
-  final TextEditingController passC = TextEditingController();
+  final TextEditingController emailC = TextEditingController(
+    text: "admin@gmail.com",
+  );
+  final TextEditingController passC = TextEditingController(
+    text: "admin123",
+  );
+
+  final AuthController authC = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +64,33 @@ class SigninView extends GetView<SigninController> {
           ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (controller.isLoading.isFalse) {
+                if (emailC.text.isNotEmpty && passC.text.isNotEmpty) {
+                  controller.isLoading(true);
+                  Map<String, dynamic> hasil =
+                      await authC.login(emailC.text, passC.text);
+                  controller.isLoading(false);
+
+                  if (hasil["error"] == true) {
+                    Get.snackbar("Error", hasil["message"]);
+                  } else {
+                    Get.offAllNamed(Routes.home);
+                  }
+                } else {
+                  Get.snackbar("Error", "Email dan Password Harus Diisi");
+                }
+              }
+            },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(9),
               ),
               padding: const EdgeInsets.symmetric(vertical: 20),
             ),
-            child: Text("LOGIN"),
+            child: Obx(
+              () => Text(controller.isLoading.isFalse ? "LOGIN" : "Loading..."),
+            ),
           ),
         ],
       ),
